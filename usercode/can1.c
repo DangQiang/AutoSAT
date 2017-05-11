@@ -18,8 +18,8 @@ CanTxMsg	CAN1_SEND_DATA;	//发送数据结构体
 #define		GLOBAL_IDENTIFIER	0x400	//PC->全局
 
 #define	MID_MsgAck	0x01	//应答
-#define	MID_Param		0x02	//设置参数
-#define	MID_Cmd			0x03	//设置命令
+//#define	MID_Param		0x02	//设置参数
+#define	MID_Cmd			0x02	//设置命令
 /*******************************************************************************
 * Function Name  : CAN1_Init
 * Description    : CAN1初始化函数
@@ -178,19 +178,19 @@ void can1_thread_entry(void* parameter)
 				
 				switch(can1_data[0])//指令解析
 				{
-					case	MID_Param://设置参数
-						shake_speed = can1_data[3]+(can1_data[4]<<8);	//振荡频率
-						shake_time	= can1_data[5]+(can1_data[6]<<8);	//振荡时间	
-						break;
+//					case	MID_Param://设置参数
+//						shake_speed = can1_data[3]+(can1_data[4]<<8);	//振荡频率
+//						shake_time	= can1_data[5]+(can1_data[6]<<8);	//振荡时间	
+//						break;
 					
 					case MID_Cmd:
-						if(can1_data[1]==0x04)//开始振荡
+						if(can1_data[1]==0x05)//开始振荡
 							{
-								shake_speed = can1_data[2]+(can1_data[3]<<8);	//振荡频率
-								shake_time	= can1_data[4]+(can1_data[5]<<8);	//振荡时间	
+								shake_speed = can1_data[3]+(can1_data[2]<<8);	//振荡频率
+								shake_time	= can1_data[5]+(can1_data[4]<<8);	//振荡时间	
 								Shake_Start(shake_speed,shake_time,can1_data[6]);
 							}
-						else if(can1_data[1]==0x05)//停止振荡
+						else if(can1_data[1]==0x06)//停止振荡
 							{Shake_Time_Global=1;}
 						break;
 					
