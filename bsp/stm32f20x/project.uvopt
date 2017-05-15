@@ -1129,7 +1129,7 @@
       <Focus>0</Focus>
       <ColumnNumber>23</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>7</TopLine>
+      <TopLine>10</TopLine>
       <CurrentLine>12</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\usercode\process.c</PathWithFileName>
@@ -1159,10 +1159,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>15</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>102</TopLine>
-      <CurrentLine>192</CurrentLine>
+      <TopLine>104</TopLine>
+      <CurrentLine>202</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\usercode\can1.c</PathWithFileName>
       <FilenameWithoutPath>can1.c</FilenameWithoutPath>
@@ -1183,7 +1183,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>24</ColumnNumber>
+      <ColumnNumber>27</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>26</TopLine>
       <CurrentLine>27</CurrentLine>
@@ -1249,7 +1249,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>204</TopLine>
+      <TopLine>207</TopLine>
       <CurrentLine>209</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\usercode\hardware\shake.c</PathWithFileName>

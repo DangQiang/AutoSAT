@@ -17,7 +17,7 @@ CanTxMsg	CAN1_SEND_DATA;	//发送数据结构体
 #define		GROUP_IDENTIFIER	0x480	//PC->组
 #define		GLOBAL_IDENTIFIER	0x400	//PC->全局
 
-#define	MID_MsgAck	0x01	//应答
+#define	MID_MsgAck	0x00	//应答
 //#define	MID_Param		0x02	//设置参数
 #define	MID_Cmd			0x02	//设置命令
 /*******************************************************************************
