@@ -192,32 +192,43 @@ void error_thread_entry(void* parameter)
 *******************************************************************************/
 void door1_thread_entry(void* parameter)
 {
-		rt_uint16_t lock1_power_on_count;//LOCK1通电时间计时	
-		rt_uint32_t	lock1data_len;				//LOCK1接收数据长度
+		rt_uint8_t data_lock1[4]={MID_Param,MP_Lock,LockID_Lock1,0};//急停开关返回数据//2017.9.14添加	
+		rt_uint32_t	lock1data_len;				//LOCK1接收数据
 		mb_lock1_rece_data	=	rt_mb_create("rece_data_l1",1,RT_IPC_FLAG_FIFO);		//LOCK1指令通知邮箱初始化	
 	
 		for(;;)
 		{
 			rt_mb_recv(mb_lock1_rece_data,&lock1data_len,RT_WAITING_FOREVER);
 			{
-				if(lock1data_len == 0)//0无动作，1开启
-				{continue;}
 				
-				lock1_power_on_count = 1;//单次通电时间1S
-				
-				while(SENSOR_LOCK1_TRIG)
+				if(lock1data_len == 1)//1开锁-断电
 				{
-					LOCK1_POWER_ON;//锁1通电			
-					LOCK2_POWER_ON;//锁2通电 //2017.9.14修改				
-					rt_thread_delay(RT_TICK_PER_SECOND/10);//延时0.1s
-					lock1_power_on_count--;		
-					if(lock1_power_on_count==0)
-					{break;}
-				}	
-				rt_thread_delay(RT_TICK_PER_SECOND);//延时1s				
-				LOCK1_POWER_OFF;//锁1失电	
-				LOCK2_POWER_OFF;//锁2失电	//2017.9.14修改
-				//返回状态 //2017.9.14修改
+						LOCK1_POWER_OFF;//锁1失电	
+						LOCK2_POWER_OFF;//锁2失电	//2017.9.14修改
+						rt_thread_delay(RT_TICK_PER_SECOND);//延时1s					
+				}
+				else if(lock1data_len == 0)//0关锁-通电
+				{
+					if(!SENSOR_LOCK1_TRIG)//判断锁未关闭状态	
+					{
+						LOCK1_POWER_ON;//锁1通电			
+						LOCK2_POWER_ON;//锁2通电 //2017.9.14修改				
+						rt_thread_delay(RT_TICK_PER_SECOND);//延时1s		
+						if(!SENSOR_LOCK1_TRIG)//关闭失败
+						{
+							LOCK1_POWER_OFF;//锁1失电	
+							LOCK2_POWER_OFF;//锁2失电	//2017.9.14修改
+						}
+					}
+					else
+					{
+						rt_thread_delay(RT_TICK_PER_SECOND);//延时1s							
+					}
+				}
+
+				data_lock1[3] = SENSOR_LOCK1_STATE;	//读取LOCK1状态				
+				CAN1_SendData(MSHEL_IDENTIFIER,data_lock1,4);//返回状态	
+
 			}
 		}
 }
