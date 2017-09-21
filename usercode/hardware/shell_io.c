@@ -85,7 +85,7 @@ void Shell_Io_Init(void)
 		if (init_thread != RT_NULL) rt_thread_startup(init_thread);	
 
 		Lamp_Handler(LampID_GRN,1);	//开机开启状态绿灯
-		Lamp_Handler(LampID_LIG,0);	//开机默认关闭照明灯
+		Lamp_Handler(LampID_LIG,1);	//开机默认开启照明灯
 }
 /*******************************************************************************
 * Function Name  : Lamp_Handler
@@ -135,6 +135,7 @@ void Lamp_Handler(rt_uint8_t type,rt_uint8_t cmd)
 			Lamp_Flag[LampID_RED] = 0;//设置状态				
 			LED_STATE_OPEN;//开启总电源
 			LED_YEL_OPEN;//黄灯开启
+//		蜂鸣器开启
 			
 //			BUZZ_OPEN;//蜂鸣器开启
 //			rt_thread_delay(RT_TICK_PER_SECOND/5); //响0.2s		
