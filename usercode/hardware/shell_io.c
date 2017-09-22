@@ -235,7 +235,7 @@ void door1_thread_entry(void* parameter)
 }
 /*******************************************************************************
 * Function Name  : door2_thread_entry
-* Description    : 门锁处理_线程
+* Description    : 门锁处理_线程，新版本去掉小门锁
 * Input          : null
 *******************************************************************************/
 void door2_thread_entry(void* parameter)
@@ -249,21 +249,21 @@ void door2_thread_entry(void* parameter)
 		{
 			rt_mb_recv(mb_lock2_rece_data,&lock2_data_len,RT_WAITING_FOREVER);
 			{
-				if(lock2_data_len == 0)//0无动作，1开启
-				{continue;}
-				
-				lock2_power_on_count = 80;//单次通电时间10S
-				
-				while(SENSOR_LOCK2_TRIG)
-				{
-					LOCK2_POWER_ON;//锁2通电						
-					rt_thread_delay(RT_TICK_PER_SECOND/10);//延时0.1s
-					lock2_power_on_count--;		
-					if(lock2_power_on_count==0)
-					{break;}
-				}
-				rt_thread_delay(RT_TICK_PER_SECOND);//延时1s				
-				LOCK2_POWER_OFF;//锁2失电			
+//				if(lock2_data_len == 0)//0无动作，1开启
+//				{continue;}
+//				
+//				lock2_power_on_count = 80;//单次通电时间10S
+//				
+//				while(SENSOR_LOCK2_TRIG)
+//				{
+//					LOCK2_POWER_ON;//锁2通电						
+//					rt_thread_delay(RT_TICK_PER_SECOND/10);//延时0.1s
+//					lock2_power_on_count--;		
+//					if(lock2_power_on_count==0)
+//					{break;}
+//				}
+//				rt_thread_delay(RT_TICK_PER_SECOND);//延时1s				
+//				LOCK2_POWER_OFF;//锁2失电			
 			}
 		}
 }
